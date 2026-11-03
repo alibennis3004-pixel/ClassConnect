@@ -1,0 +1,6 @@
+{
+  "name": "ClassConnect",
+  "description": "Plateforme moderne de gestion d'une classe de collège et de son club de lecture au Maroc. Connecter la classe, faciliter la réussite.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

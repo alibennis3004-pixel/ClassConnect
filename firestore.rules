@@ -1,0 +1,66 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Document de vérification de connectivité
+    match /test/connection {
+      allow read, write: if true;
+    }
+
+    // Paramètres généraux
+    match /settings/{settingId} {
+      allow read, write: if true;
+    }
+
+    // Administrateurs
+    match /admins/{adminId} {
+      allow read, write: if true;
+    }
+
+    // Registre des comptes et élèves
+    match /students/{studentId} {
+      allow read, write: if true;
+    }
+
+    // Leçons et cours de la classe
+    match /lessons/{lessonId} {
+      allow read, write: if true;
+    }
+
+    // Catalogue des livres du club de lecture
+    match /books/{bookId} {
+      allow read, write: if true;
+    }
+
+    // Enregistrement des emprunts et retours
+    match /loans/{loanId} {
+      allow read, write: if true;
+    }
+
+    // Annonces officielles
+    match /announcements/{announcementId} {
+      allow read, write: if true;
+    }
+
+    // Avertissements scolaires
+    match /student_warnings/{warningId} {
+      allow read, write: if true;
+    }
+
+    // Commentaires de cours et discussions
+    match /lesson_comments/{commentId} {
+      allow read, write: if true;
+    }
+
+    // Suivi et progression des élèves sur les leçons
+    match /lesson_progress/{progressId} {
+      allow read, write: if true;
+    }
+
+    // Centre de notifications
+    match /notifications/{notificationId} {
+      allow read, write: if true;
+    }
+  }
+}

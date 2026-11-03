@@ -1,0 +1,380 @@
+{
+  "entities": {
+    "Admin": {
+      "title": "Admin",
+      "description": "Utilisateurs administrateurs autorisés (ex: Professeure principale)",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Adresse email de l'administrateur"
+        },
+        "role": {
+          "type": "string",
+          "description": "Rôle administrateur"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date de désignation"
+        }
+      },
+      "required": ["email", "role"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Compte élève ou utilisateur inscrit de la classe",
+      "type": "object",
+      "properties": {
+        "studentNumber": {
+          "type": "string",
+          "description": "Numéro d'ordre ou matricule scolaire"
+        },
+        "identifier": {
+          "type": "string",
+          "description": "Identifiant unique de connexion"
+        },
+        "firstName": {
+          "type": "string",
+          "description": "Prénom de l'élève"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Nom de famille de l'élève"
+        },
+        "className": {
+          "type": "string",
+          "description": "Classe de collège"
+        },
+        "email": {
+          "type": "string",
+          "description": "Adresse email de l'élève"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "pending", "suspended", "banned", "rejected"],
+          "description": "État du compte de l'élève"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin", "teacher", "club_manager", "student"],
+          "description": "Rôle dans ClassConnect (Admin, Professeur, Responsable du club, Élève)"
+        },
+        "uid": {
+          "type": "string",
+          "description": "Identifiant Firebase Auth associé"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Date d'inscription"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Date de dernière modification"
+        },
+        "approvedAt": {
+          "type": "string",
+          "description": "Date d'approbation par l'administrateur"
+        },
+        "approvedBy": {
+          "type": "string",
+          "description": "Nom de l'administrateur ayant approuvé"
+        },
+        "banReason": {
+          "type": "string",
+          "description": "Motif de suspension ou bannissement"
+        }
+      },
+      "required": ["studentNumber", "firstName", "lastName", "className", "email", "status", "role"]
+    },
+    "Lesson": {
+      "title": "Lesson",
+      "description": "Leçon ou cours publié par la professeure avec pièces jointes multi-formats",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Titre de la leçon ou du cours"
+        },
+        "subject": {
+          "type": "string",
+          "description": "Matière ou module"
+        },
+        "description": {
+          "type": "string",
+          "description": "Contenu du cours ou consignes"
+        },
+        "publishedAt": {
+          "type": "string",
+          "description": "Date de publication"
+        },
+        "dueDate": {
+          "type": "string",
+          "description": "Date limite de rendu facultative si le cours comporte un travail à rendre"
+        },
+        "attachments": {
+          "type": "array",
+          "description": "Pièces jointes de tous formats (PDF, Word, Excel, PowerPoint, Images, Audio, Vidéo)"
+        },
+        "createdBy": {
+          "type": "string",
+          "description": "Nom ou UID de la professeure"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Horodatage de création"
+        }
+      },
+      "required": ["title", "subject", "description", "publishedAt"]
+    },
+    "Book": {
+      "title": "Book",
+      "description": "Livre du catalogue de la bibliothèque du club de lecture",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Titre du livre"
+        },
+        "author": {
+          "type": "string",
+          "description": "Auteur du livre"
+        },
+        "category": {
+          "type": "string",
+          "description": "Catégorie ou genre littéraire"
+        },
+        "isbn": {
+          "type": "string",
+          "description": "Code ISBN ou référence interne"
+        },
+        "totalCopies": {
+          "type": "string",
+          "description": "Nombre total d'exemplaires"
+        },
+        "availableCopies": {
+          "type": "string",
+          "description": "Nombre d'exemplaires actuellement disponibles"
+        },
+        "coverUrl": {
+          "type": "string",
+          "description": "URL ou vignette du livre"
+        },
+        "description": {
+          "type": "string",
+          "description": "Résumé ou quatrième de couverture"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Date d'ajout au catalogue"
+        }
+      },
+      "required": ["title", "author", "category", "totalCopies", "availableCopies"]
+    },
+    "Loan": {
+      "title": "Loan",
+      "description": "Emprunt d'un livre par un élève membre",
+      "type": "object",
+      "properties": {
+        "bookId": {
+          "type": "string",
+          "description": "Identifiant du livre"
+        },
+        "bookTitle": {
+          "type": "string",
+          "description": "Titre du livre emprunté"
+        },
+        "studentId": {
+          "type": "string",
+          "description": "Identifiant de la fiche élève"
+        },
+        "studentName": {
+          "type": "string",
+          "description": "Nom complet de l'élève emprunteur"
+        },
+        "studentEmail": {
+          "type": "string",
+          "description": "Adresse email de l'élève"
+        },
+        "loanDate": {
+          "type": "string",
+          "description": "Date de début d'emprunt"
+        },
+        "dueDate": {
+          "type": "string",
+          "description": "Date prévue de retour"
+        },
+        "returnDate": {
+          "type": "string",
+          "description": "Date effective de restitution"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "returned", "overdue"],
+          "description": "État de l'emprunt"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Notes ou état du livre"
+        },
+        "processedBy": {
+          "type": "string",
+          "description": "Enregistré par (Professeure ou Responsable du club)"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Date de création de l'enregistrement"
+        }
+      },
+      "required": ["bookId", "bookTitle", "studentId", "studentName", "loanDate", "dueDate", "status"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "Annonce officielle de la classe ou du club de lecture",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Titre de l'annonce"
+        },
+        "content": {
+          "type": "string",
+          "description": "Contenu du message"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["general", "important", "homework", "event", "teachers", "activities", "club", "course"],
+          "description": "Catégorie"
+        },
+        "audience": {
+          "type": "string",
+          "description": "Destinataires autorisés"
+        },
+        "authorName": {
+          "type": "string",
+          "description": "Auteur de l'annonce"
+        },
+        "authorRole": {
+          "type": "string",
+          "description": "Rôle de l'auteur"
+        },
+        "isPinned": {
+          "type": "boolean",
+          "description": "Annonce épinglée en haut"
+        },
+        "isImportant": {
+          "type": "boolean",
+          "description": "Annonce importante mise en évidence"
+        },
+        "images": {
+          "type": "array",
+          "description": "URLs des photographies et images"
+        },
+        "videos": {
+          "type": "array",
+          "description": "Vidéos et liens externes"
+        },
+        "attachments": {
+          "type": "array",
+          "description": "Documents et fichiers joints téléchargeables"
+        },
+        "likes": {
+          "type": "array",
+          "description": "Identifiants des utilisateurs ayant réagi"
+        },
+        "readBy": {
+          "type": "array",
+          "description": "Enregistrements des lectures confirmées"
+        },
+        "comments": {
+          "type": "array",
+          "description": "Commentaires des utilisateurs"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Date de publication"
+        }
+      },
+      "required": ["title", "content", "category"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "Notification personnalisée envoyée aux élèves ou utilisateurs",
+      "type": "object",
+      "properties": {
+        "recipientEmail": {
+          "type": "string",
+          "description": "Email du destinataire"
+        },
+        "recipientId": {
+          "type": "string",
+          "description": "ID ou numéro d'ordre de l'utilisateur"
+        },
+        "recipientName": {
+          "type": "string",
+          "description": "Nom du destinataire"
+        },
+        "title": {
+          "type": "string",
+          "description": "Titre de la notification"
+        },
+        "message": {
+          "type": "string",
+          "description": "Texte explicatif court"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type de notification (cours, ressource, réponse, avertissement, approbation, refus)"
+        },
+        "linkPage": {
+          "type": "string",
+          "description": "Identifiant de la page de destination"
+        },
+        "targetId": {
+          "type": "string",
+          "description": "Identifiant de la ressource cible"
+        },
+        "isRead": {
+          "type": "boolean",
+          "description": "Indicateur de lecture"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date et heure d'émission"
+        }
+      },
+      "required": ["recipientEmail", "title", "message", "type", "isRead", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/admins/{adminId}": {
+      "schema": "Admin",
+      "description": "Liste des UIDs administrateurs (ex: professeure)"
+    },
+    "/students/{studentId}": {
+      "schema": "Student",
+      "description": "Registre des comptes et des élèves inscrits"
+    },
+    "/lessons/{lessonId}": {
+      "schema": "Lesson",
+      "description": "Catalogue des leçons et des cours de la classe"
+    },
+    "/books/{bookId}": {
+      "schema": "Book",
+      "description": "Catalogue de la bibliothèque du club de lecture"
+    },
+    "/loans/{loanId}": {
+      "schema": "Loan",
+      "description": "Historique et registre des emprunts et retours"
+    },
+    "/announcements/{announcementId}": {
+      "schema": "Announcement",
+      "description": "Annonces de la classe et du club de lecture"
+    },
+    "/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "Centre de notifications en temps réel des utilisateurs"
+    }
+  }
+}
